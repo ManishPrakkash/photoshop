@@ -18,10 +18,10 @@ const Login = () => {
             <input type="checkbox" id="keep-logged-in" />
             <label htmlFor="keep-logged-in">Keep me logged in</label>
           </div>
-          <button>Login</button>
+          <button className="rounded-bl-full">Login</button>
         </div>
       </div>
-      <div className="login-right">
+      <div className="login-right rounded-bl-100px">
         <img src="photoshop/src/assets/Logo.png" alt="Logo" />
         <h1>NAME</h1>
       </div>

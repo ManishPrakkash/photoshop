@@ -15,17 +15,17 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-color: #fff;
+  background-color: #f2f2f2;
   padding: 20px;
 }
 
 .login-right {
   flex: 1;
-  background: linear-gradient(180deg, #8a2be2, #4b0082);
+  background: linear-gradient(180deg, #868CFF, #4318FF);
   display: flex;
   justify-content: center;
   align-items: center;
-  color: #fff;
+  color: #B3B7FA;
 }
 
 .login-right img {
@@ -55,16 +55,16 @@ body {
   padding: 10px;
   margin-bottom: 10px;
   border: 1px solid #ccc;
-  border-radius: 5px;
+  border-radius: 5px; /* Ensure border radius is 5px */
 }
 
 .login-form button {
-  width: 100%;
+  width: 100%; /* Ensure button is the same length as input */
   padding: 10px;
   background-color: #4318FF;
   color: #fff;
   border: none;
-  border-radius: 5px;
+  border-radius: 6px; /* Update border radius to 6px */
   cursor: pointer;
 }
 
@@ -90,4 +90,8 @@ body {
 
 .login-form .keep-logged-in input {
   margin-right: 5px;
+}
+
+.rounded-bl-100px {
+  border-bottom-left-radius: 100px;
 }
