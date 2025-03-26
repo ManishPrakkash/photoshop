@@ -82,7 +82,10 @@ const PriceListPage = () => {
               <LayoutDashboard className="w-6 h-6 mr-3 text-gray-500" />
               <span>Dashboard</span>
             </li>
-            <li className="flex items-center pl-6 py-3 text-blue-600 bg-blue-50 border-l-4 border-blue-600">
+            <li 
+              onClick={() => navigate('/pricelist')} 
+              className="flex items-center pl-6 py-3 text-blue-600 bg-blue-50 border-l-4 border-blue-600"
+            >
               <List className="w-6 h-6 mr-3 text-blue-600" />
               <span>Price List</span>
             </li>
@@ -105,7 +108,7 @@ const PriceListPage = () => {
         <div className="mt-auto p-6">
           <button 
             className="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded-full"
-            onClick={() => navigate('/logout')}
+            onClick={() => navigate('/login')} // Navigate to the login page
           >
             Logout
           </button>

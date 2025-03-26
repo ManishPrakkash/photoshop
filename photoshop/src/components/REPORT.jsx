@@ -117,7 +117,10 @@ const ReportPage = () => {
               <List className="w-6 h-6 mr-3 text-gray-500" />
               <span>Price List</span>
             </li>
-            <li className="flex items-center pl-6 py-3 text-blue-600 bg-blue-50 border-l-4 border-blue-600">
+            <li 
+              onClick={() => navigate('/report')} 
+              className="flex items-center pl-6 py-3 text-blue-600 bg-blue-50 border-l-4 border-blue-600"
+            >
               <FileText className="w-6 h-6 mr-3 text-blue-600" />
               <span>Report</span>
             </li>
