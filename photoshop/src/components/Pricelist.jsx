@@ -64,59 +64,62 @@ const PriceListPage = () => {
   };
 
   return (
-    <div className="flex h-screen bg-gray-100">
+    <div className="flex h-screen bg-gray-50">
       {/* Sidebar */}
-      <div className="w-64 bg-white shadow-md">
-        <div className="p-4 border-b flex items-center space-x-2">
-          <span className="text-xl font-bold text-purple-600">NAME</span>
+      <div className="w-64 bg-white border-r border-gray-200">
+        <div className="p-6">
+          <div className="flex items-center space-x-2">
+            <div className="h-8 w-8 rounded-full border-2 border-blue-600"></div>
+            <span className="font-bold text-xl text-blue-900">NAME</span>
+          </div>
         </div>
-        
-        <nav className="p-4">
-          <ul className="space-y-2">
+        <div className="mt-6">
+          <ul>
             <li 
-              onClick={() => navigate('/dashboard')} // Add navigation to Dashboard
-              className="flex items-center text-gray-600 hover:bg-gray-100 p-2 rounded cursor-pointer"
+              onClick={() => navigate('/dashboard')} 
+              className="flex items-center pl-6 py-3 text-gray-500 hover:bg-gray-100 cursor-pointer"
             >
-              <LayoutDashboard className="mr-2" />
+              <LayoutDashboard className="w-6 h-6 mr-3 text-gray-500" />
               <span>Dashboard</span>
             </li>
-            <li className="flex items-center text-purple-600 bg-purple-100 p-2 rounded">
-              <List className="mr-2" />
+            <li className="flex items-center pl-6 py-3 text-blue-600 bg-blue-50 border-l-4 border-blue-600">
+              <List className="w-6 h-6 mr-3 text-blue-600" />
               <span>Price List</span>
             </li>
             <li 
-              onClick={() => navigate('/report')} // Placeholder for Report navigation
-              className="flex items-center text-gray-600 hover:bg-gray-100 p-2 rounded cursor-pointer"
+              onClick={() => navigate('/report')} 
+              className="flex items-center pl-6 py-3 text-gray-500 hover:bg-gray-100 cursor-pointer"
             >
-              <FileText className="mr-2" />
+              <FileText className="w-6 h-6 mr-3 text-gray-500" />
               <span>Report</span>
             </li>
             <li 
-              onClick={() => navigate('/profile')} // Add navigation to Profile
-              className="flex items-center text-gray-600 hover:bg-gray-100 p-2 rounded cursor-pointer"
+              onClick={() => navigate('/profile')} 
+              className="flex items-center pl-6 py-3 text-gray-500 hover:bg-gray-100 cursor-pointer"
             >
-              <UserCircle2 className="mr-2" />
+              <UserCircle2 className="w-6 h-6 mr-3 text-gray-500" />
               <span>Profile</span>
             </li>
           </ul>
-        </nav>
-        
-        <button 
-          onClick={() => navigate('/logout')} // Add navigation to Logout
-          className="absolute bottom-4 left-4 text-red-500 hover:bg-red-50 p-2 rounded"
-        >
-          Logout
-        </button>
+        </div>
+        <div className="mt-auto p-6">
+          <button 
+            className="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded-full"
+            onClick={() => navigate('/logout')}
+          >
+            Logout
+          </button>
+        </div>
       </div>
-      
+
       {/* Main Content */}
-      <div className="flex-1 p-8 overflow-y-auto">
-        <div className="flex justify-between items-center mb-6">
+      <div className="flex-1 overflow-auto">
+        <div className="border-b border-gray-200 p-6 flex justify-between items-center">
           <div>
-            <h1 className="text-2xl font-bold text-gray-800">Price List</h1>
-            <p className="text-gray-500">Pollachi Branch</p>
+            <div className="text-gray-500 text-sm">Pages / Price List</div>
+            <h1 className="text-2xl font-bold text-blue-900">Price List</h1>
+            <div className="text-green-500 text-sm mt-1">Pollachi Branch</div>
           </div>
-          
           <div className="relative">
             <input 
               type="text" 
@@ -126,61 +129,62 @@ const PriceListPage = () => {
             <Search className="absolute left-2 top-3 text-gray-400" />
           </div>
         </div>
-        
-        <div className="grid grid-cols-2 gap-6">
-          {items.map((item) => (
-            <div 
-              key={item.id} 
-              className="bg-white rounded-lg shadow-md overflow-hidden flex"
-            >
-              <div className="w-1/2">
-                <img 
-                  src={item.image} 
-                  alt={item.category} 
-                  className="w-full h-full object-cover"
-                />
-              </div>
-              <div className="w-1/2 p-4 flex flex-col justify-between">
-                <div>
-                  <h3 className="text-lg font-semibold">{item.category}</h3>
-                  <p className="text-sm text-gray-600">{item.size}</p>
-                  <p className="text-xs text-gray-500 mt-1">
-                    Material: {item.material}
-                  </p>
+
+        <div className="p-6">
+          <div className="grid grid-cols-2 gap-6">
+            {items.map((item) => (
+              <div 
+                key={item.id} 
+                className="bg-white rounded-lg shadow-sm overflow-hidden flex"
+              >
+                <div className="w-1/2">
+                  <img 
+                    src={item.image} 
+                    alt={item.category} 
+                    className="w-full h-full object-cover"
+                  />
                 </div>
-                
-                <div className="mt-4">
-                  <p className="text-xl font-bold text-purple-600">
-                    Rs. {item.price}
-                  </p>
-                  <div className="flex items-center mt-2 space-x-2">
-                    <button 
-                      onClick={() => updateQuantity(item.id, -1)}
-                      className="bg-purple-100 text-purple-600 p-1 rounded"
-                    >
-                      <Minus size={16} />
-                    </button>
-                    <span>{item.quantity}</span>
-                    <button 
-                      onClick={() => updateQuantity(item.id, 1)}
-                      className="bg-purple-100 text-purple-600 p-1 rounded"
-                    >
-                      <Plus size={16} />
-                    </button>
+                <div className="w-1/2 p-4 flex flex-col justify-between">
+                  <div>
+                    <h3 className="text-lg font-semibold text-blue-900">{item.category}</h3>
+                    <p className="text-sm text-gray-600">{item.size}</p>
+                    <p className="text-xs text-gray-500 mt-1">
+                      Material: {item.material}
+                    </p>
+                  </div>
+                  <div className="mt-4">
+                    <p className="text-xl font-bold text-blue-600">
+                      Rs. {item.price}
+                    </p>
+                    <div className="flex items-center mt-2 space-x-2">
+                      <button 
+                        onClick={() => updateQuantity(item.id, -1)}
+                        className="bg-blue-50 text-blue-600 p-1 rounded"
+                      >
+                        <Minus size={16} />
+                      </button>
+                      <span>{item.quantity}</span>
+                      <button 
+                        onClick={() => updateQuantity(item.id, 1)}
+                        className="bg-blue-50 text-blue-600 p-1 rounded"
+                      >
+                        <Plus size={16} />
+                      </button>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-          ))}
-        </div>
-        
-        <div className="mt-6 text-right">
-          <div className="text-lg font-semibold text-gray-800 mb-4">
-            Total Price: Rs. {calculateTotalPrice()}
+            ))}
           </div>
-          <button className="bg-purple-600 text-white px-6 py-2 rounded-full hover:bg-purple-700">
-            Generate Bill
-          </button>
+
+          <div className="mt-6 text-right">
+            <div className="text-lg font-semibold text-blue-900 mb-4">
+              Total Price: Rs. {calculateTotalPrice()}
+            </div>
+            <button className="bg-blue-600 text-white px-6 py-2 rounded-full hover:bg-blue-700">
+              Generate Bill
+            </button>
+          </div>
         </div>
       </div>
     </div>
