@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { 
-  User, 
   LayoutDashboard, 
   FileText, 
   List, 
@@ -8,9 +7,11 @@ import {
   Search, 
   Minus, 
   Plus 
-} from 'lucide-react';
+} from 'lucide-react'; // Ensure lucide-react is installed and imported correctly
+import { useNavigate } from 'react-router-dom'; // Add navigation
 
 const PriceListPage = () => {
+  const navigate = useNavigate(); // Initialize navigation
   const [items, setItems] = useState([
     {
       id: 1,
@@ -58,6 +59,10 @@ const PriceListPage = () => {
     ));
   };
 
+  const calculateTotalPrice = () => {
+    return items.reduce((total, item) => total + item.price * item.quantity, 0);
+  };
+
   return (
     <div className="flex h-screen bg-gray-100">
       {/* Sidebar */}
@@ -68,26 +73,38 @@ const PriceListPage = () => {
         
         <nav className="p-4">
           <ul className="space-y-2">
-            <li className="flex items-center text-purple-600 bg-purple-100 p-2 rounded">
+            <li 
+              onClick={() => navigate('/dashboard')} // Add navigation to Dashboard
+              className="flex items-center text-gray-600 hover:bg-gray-100 p-2 rounded cursor-pointer"
+            >
               <LayoutDashboard className="mr-2" />
               <span>Dashboard</span>
             </li>
-            <li className="flex items-center text-gray-600 hover:bg-gray-100 p-2 rounded">
+            <li className="flex items-center text-purple-600 bg-purple-100 p-2 rounded">
               <List className="mr-2" />
               <span>Price List</span>
             </li>
-            <li className="flex items-center text-gray-600 hover:bg-gray-100 p-2 rounded">
+            <li 
+              onClick={() => navigate('/report')} // Placeholder for Report navigation
+              className="flex items-center text-gray-600 hover:bg-gray-100 p-2 rounded cursor-pointer"
+            >
               <FileText className="mr-2" />
               <span>Report</span>
             </li>
-            <li className="flex items-center text-gray-600 hover:bg-gray-100 p-2 rounded">
+            <li 
+              onClick={() => navigate('/profile')} // Add navigation to Profile
+              className="flex items-center text-gray-600 hover:bg-gray-100 p-2 rounded cursor-pointer"
+            >
               <UserCircle2 className="mr-2" />
               <span>Profile</span>
             </li>
           </ul>
         </nav>
         
-        <button className="absolute bottom-4 left-4 text-red-500 hover:bg-red-50 p-2 rounded">
+        <button 
+          onClick={() => navigate('/logout')} // Add navigation to Logout
+          className="absolute bottom-4 left-4 text-red-500 hover:bg-red-50 p-2 rounded"
+        >
           Logout
         </button>
       </div>
@@ -158,6 +175,9 @@ const PriceListPage = () => {
         </div>
         
         <div className="mt-6 text-right">
+          <div className="text-lg font-semibold text-gray-800 mb-4">
+            Total Price: Rs. {calculateTotalPrice()}
+          </div>
           <button className="bg-purple-600 text-white px-6 py-2 rounded-full hover:bg-purple-700">
             Generate Bill
           </button>
