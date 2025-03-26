@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom'; // Add this import
 
 const Profile = () => {
   // Initial profile data
@@ -43,6 +44,12 @@ const Profile = () => {
       setFormData({...profileData});
     }
     setIsEditing(!isEditing);
+  };
+
+  const navigate = useNavigate(); // Initialize the navigate function
+
+  const handleLogout = () => {
+    navigate('/logout'); // Navigate to the logout page
   };
 
   return (
@@ -103,11 +110,14 @@ const Profile = () => {
               </a>
             </li>
           </ul>
-        </div>
-        <div className="absolute bottom-8 left-8 right-8">
-          <button className="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded-full">
-            Logout
-          </button>
+          <div className="mt-6 px-6">
+            <button 
+              onClick={handleLogout} // Attach the logout handler
+              className="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded-full"
+            >
+              Logout
+            </button>
+          </div>
         </div>
       </div>
 
