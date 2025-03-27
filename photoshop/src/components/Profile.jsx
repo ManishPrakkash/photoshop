@@ -247,20 +247,27 @@ const Profile = () => {
                     </div>
                   </div>
                   <div className="col-span-1 flex justify-end">
-                    <div className="mt-8">
-                      <div className="w-32 h-32 rounded-full overflow-hidden border-4 border-white shadow-lg">
-                        <img 
-                          src={formData.photo || '/api/placeholder/128/128'} 
-                          alt="Profile" 
-                          className="w-full h-full object-cover"
-                        />
-                      </div>
-                      <input 
-                        type="file" 
-                        accept="image/*" 
-                        onChange={handlePhotoChange} 
-                        className="mt-4 text-blue-600 text-sm block mx-auto"
-                      />
+                    <div className="mt-8 flex flex-col items-center">
+                      {isEditing ? (
+                        // Show only file input when editing
+                        <div className="text-center">
+                          <input 
+                            type="file" 
+                            accept="image/*" 
+                            onChange={handlePhotoChange} 
+                            className="mt-4 text-blue-600 text-sm"
+                          />
+                        </div>
+                      ) : (
+                        // Show profile picture when not editing
+                        <div className="w-32 h-32 rounded-full overflow-hidden border-4 border-white shadow-lg">
+                          <img 
+                            src={formData.photo || '/api/placeholder/128/128'} 
+                            alt="Profile" 
+                            className="w-full h-full object-cover"
+                          />
+                        </div>
+                      )}
                     </div>
                   </div>
                 </form>
