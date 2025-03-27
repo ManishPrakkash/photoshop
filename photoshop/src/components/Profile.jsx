@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom'; // Add this import
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const Profile = () => {
   // Initial profile data
@@ -9,19 +9,29 @@ const Profile = () => {
     address: 'Pollachi',
     contactNo: '984123XXXX',
     email: 'abc123@gmail.com',
-    password: '*******'
+    password: '*******',
+    photo: '' // Add photo field
   });
 
   // State for edit mode
   const [isEditing, setIsEditing] = useState(false);
-  
+
   // State for form data during editing
-  const [formData, setFormData] = useState({...profileData});
+  const [formData, setFormData] = useState({ ...profileData });
+
+  // Load profile data from local storage on component mount
+  useEffect(() => {
+    const storedProfile = JSON.parse(localStorage.getItem('profileData'));
+    if (storedProfile) {
+      setProfileData(storedProfile);
+      setFormData(storedProfile);
+    }
+  }, []);
 
   // Handle input changes
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
       [name]: value
     }));
@@ -30,7 +40,8 @@ const Profile = () => {
   // Handle form submission
   const handleSubmit = (e) => {
     e.preventDefault();
-    setProfileData({...formData});
+    setProfileData({ ...formData }); // Save updated formData to profileData
+    localStorage.setItem('profileData', JSON.stringify(formData)); // Save to local storage
     setIsEditing(false);
   };
 
@@ -38,12 +49,25 @@ const Profile = () => {
   const toggleEdit = () => {
     if (isEditing) {
       // Cancel edit - reset form data to current profile data
-      setFormData({...profileData});
+      setFormData({ ...profileData });
     } else {
       // Enter edit mode
-      setFormData({...profileData});
+      setFormData({ ...profileData });
     }
     setIsEditing(!isEditing);
+  };
+
+  // Handle photo upload
+  const handlePhotoChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = () => {
+        const photoData = reader.result;
+        setFormData((prev) => ({ ...prev, photo: photoData })); // Update formData state
+      };
+      reader.readAsDataURL(file);
+    }
   };
 
   const navigate = useNavigate(); // Initialize the navigate function
@@ -222,21 +246,21 @@ const Profile = () => {
                       </button>
                     </div>
                   </div>
-                  <div className="col-span-1 flex justify-center">
+                  <div className="col-span-1 flex justify-end">
                     <div className="mt-8">
                       <div className="w-32 h-32 rounded-full overflow-hidden border-4 border-white shadow-lg">
                         <img 
-                          src="/api/placeholder/128/128" 
+                          src={formData.photo || '/api/placeholder/128/128'} 
                           alt="Profile" 
                           className="w-full h-full object-cover"
                         />
                       </div>
-                      <button 
-                        type="button"
+                      <input 
+                        type="file" 
+                        accept="image/*" 
+                        onChange={handlePhotoChange} 
                         className="mt-4 text-blue-600 text-sm block mx-auto"
-                      >
-                        Change photo
-                      </button>
+                      />
                     </div>
                   </div>
                 </form>
@@ -269,28 +293,28 @@ const Profile = () => {
                       <div className="font-medium">{profileData.password}</div>
                     </div>
                   </div>
-                  <div className="col-span-1 flex justify-center">
-                    <div className="mt-8">
-                      <div className="w-32 h-32 rounded-full overflow-hidden border-4 border-white shadow-lg">
-                        <img 
-                          src="/api/placeholder/128/128" 
-                          alt="Profile" 
-                          className="w-full h-full object-cover"
-                        />
-                      </div>
-                    </div>
-                  </div>
                 </div>
               )}
 
+              {/* Profile picture overlay */}
+              <div className="absolute top-[-50px] right-[44px] w-32 h-32 rounded-full overflow-hidden border-4 border-white shadow-lg bg-blue-500">
+                <img 
+                  src={profileData.photo || '/api/placeholder/128/128'} 
+                  alt="Profile" 
+                  className="w-full h-full object-cover"
+                />
+              </div>
+
               {/* Edit button */}
               {!isEditing && (
-                <button 
-                  onClick={toggleEdit}
-                  className="absolute top-6 right-6 bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded"
-                >
-                  Edit
-                </button>
+                <div className="mt-6 text-right">
+                  <button 
+                    onClick={toggleEdit}
+                    className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded"
+                  >
+                    Edit
+                  </button>
+                </div>
               )}
             </div>
           </div>
