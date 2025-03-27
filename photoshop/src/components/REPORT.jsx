@@ -7,8 +7,10 @@ import {
   MoreHorizontal, 
   Download 
 } from 'lucide-react';
+import { useNavigate } from 'react-router-dom'; // Import useNavigate
 
 const ReportPage = () => {
+  const navigate = useNavigate(); // Initialize navigation
   const [paymentDetails] = useState([
     { 
       name: 'Aadhavan', 
@@ -136,7 +138,7 @@ const ReportPage = () => {
         <div className="mt-auto p-6">
           <button 
             className="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded-full"
-            onClick={() => navigate('/logout')}
+            onClick={() => navigate('/login')} // Navigate to the login page
           >
             Logout
           </button>
